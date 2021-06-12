@@ -3,8 +3,8 @@ import numpy as np
 import csv
 from pathlib import Path
 import shutil
-import dataset
-import tfrecords
+import tfrecord_dataset.dataset as dataset
+import tfrecord_dataset.tfrecords as tfrecords
 
 
 class MyTestCase(unittest.TestCase):

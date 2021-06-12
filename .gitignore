@@ -123,3 +123,18 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Custom
+/_build/
+/_static/
+/_templates/
+/autodoc.bat
+/conf.py
+/index.rst
+/make.bat
+/Makefile
+/modules.rst
+/tfrecord_dataset.dataset.rst
+/tfrecord_dataset.rst
+/tfrecord_dataset.tfrecords.rst
+/.idea/

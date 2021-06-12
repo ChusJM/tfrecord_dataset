@@ -96,14 +96,14 @@ def _auto_tf_type(data_type):
 
 def npy_data_preprocessor(example_path):
     """
-    Loads and preprocesses an example, given its path. The example must be a *.npy file that contains an array
+    Loads and preprocesses an example, given its path. The example must be a `*.npy` file that contains an array
     that can (and will) be casted to float32. It also returns the data type and the shape before flattening the array,
     to allow serialization and later reconstruction, and a string to serve as example identifier (e.g. the file name).
 
-    :param example_path: Path to the *.npy file.
+    :param example_path: Path to the `*.npy` file.
     :type example_path: str
     :return: Flattened numpy array of type np.float32 (it must be compatible with a list of float), data type (to allow
-        for serialization and later parsing) and data shape before flattening (to allow for unflattening).
+        for serialization and later parsing), data shape before flattening (to allow for unflattening), and example ID.
     :rtype: tuple[numpy.ndarray, type, tuple[int], str]
     """
     data = np.load(example_path).astype(np.float32)
@@ -120,12 +120,12 @@ def _serialize_example(
     :type example: tensorflow.Tensor
     :param data_preprocessing_function: Function to be applied on the first column of each example (file path), which
         is supposed to load the example data and perform any additional preprocessing. It must return the data
-        in any of the supported formats for serialization (str, bytes or list of numbers), along with the
+        in any of the supported formats for serialization (bytes or list of numbers), along with the
         data type (after loading and preprocessing) and the original data shape (after loading and preprocessing but
         before flattening). It will also return an example ID, used to identify the example (for instance, the original
         file name). This ID is not used internally but it is useful for further usages of the dataset.
         Optional, default: npy_data_preprocessor (see above).
-    :type data_preprocessing_function: (str) -> tuple[Union[str, bytes, list[float], list[int]], type, tuple[int], str]
+    :type data_preprocessing_function: (str) -> tuple[Union[bytes, list[float], list[int]], type, tuple[int], str]
     :param label_type: Type of the label, usually an integer. If there is no label, it is ignored.
         Optional, default: int
     :type label_type: type
@@ -179,12 +179,12 @@ def _tf_serialize_example(
     :type example: tensorflow.Tensor
     :param data_preprocessing_function: Function to be applied on the first column of each example (file path), which
         is supposed to load the example data and perform any additional preprocessing. It must return the data
-        in any of the supported formats for serialization (str, bytes or list of numbers), along with the
+        in any of the supported formats for serialization (bytes or list of numbers), along with the
         data type (after loading and preprocessing) and the original data shape (after loading and preprocessing but
         before flattening). It will also return an example ID, used to identify the example (for instance, the original
         file name). This ID is not used internally but it is useful for further usages of the dataset.
         Optional, default: npy_data_preprocessor (see above).
-    :type data_preprocessing_function: (str) -> tuple[Union[str, bytes, list[float], list[int]], type, tuple[int], str]
+    :type data_preprocessing_function: (str) -> tuple[Union[bytes, list[float], list[int]], type, tuple[int], str]
     :param label_type: Type of the label, usually an integer. If there is no label, it is ignored.
         Optional, default: int
     :type label_type: type
@@ -213,16 +213,16 @@ def write_dataset_to_file(
 
     :param dataset: Input dataset array.
     :type dataset: numpy.ndarray
-    :param file_path: Path where the output file will be placed. It shall have *.tfrecord extension.
+    :param file_path: Path where the output file will be placed. It shall have `*.tfrecord` extension.
     :type file_path: str
     :param data_preprocessing_function: Function to be applied on the first column of each example (file path), which
         is supposed to load the example data and perform any additional preprocessing. It must return the data
-        in any of the supported formats for serialization (str, bytes or list of numbers), along with the
+        in any of the supported formats for serialization (bytes or list of numbers), along with the
         data type (after loading and preprocessing) and the original data shape (after loading and preprocessing but
         before flattening). It will also return an example ID, used to identify the example (for instance, the original
         file name). This ID is not used internally but it is useful for further usages of the dataset.
         Optional, default: npy_data_preprocessor (see above).
-    :type data_preprocessing_function: (str) -> tuple[Union[str, bytes, list[float], list[int]], type, tuple[int], str]
+    :type data_preprocessing_function: (str) -> tuple[Union[bytes, list[float], list[int]], type, tuple[int], str]
     :raises ValueError: If the label type conversion is not possible.
     :raises OSError: If there is a problem reading the example data from the file path.
     """
@@ -277,12 +277,12 @@ def _parse_example(example_proto, data_shape, data_type=np.float32, label_type=i
 
 def load_dataset_from_files(file_paths, data_shape, data_type=np.float32, label_type=int):
     """
-    Loads a tensorflow dataset from a list of *.tfrecord files with serialized examples.
+    Loads a tensorflow dataset from a list of `*.tfrecord` files with serialized examples.
     This function is the counterpart for write_dataset_to_file() (see above) and its only valid for TFRecords that
     follow the serialization format of that function (two fixed length features, 'data' (with shape = data_shape)
     and 'label' (scalar value)).
 
-    :param file_paths: List of paths to the *.tfrecord files that contain the serialized examples.
+    :param file_paths: List of paths to the `*.tfrecord` files that contain the serialized examples.
     :type file_paths: list[str]
     :param data_shape: Original shape of the example data. Since they are serialized, this metadata is needed
         to reconstruct the tensor.

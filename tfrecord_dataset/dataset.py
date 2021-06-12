@@ -63,7 +63,7 @@ class Dataset:
         :type train_set_dir: str
         :param test_set_dir: Path to the directory that contains the test examples.
         :type test_set_dir: str
-        :param file_format: Format of the example files, specified as '*.format'. It can specify any pattern that
+        :param file_format: Format of the example files, specified as `*.format`. It can specify any pattern that
             matches the desired files as long as it is compatible with Path().rglob().
         :type file_format: str
         :param train_labels_file: Path to the CSV file that maps each file name to its label. It must contain one row

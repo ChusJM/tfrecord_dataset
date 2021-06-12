@@ -1,0 +1,182 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>tfrecord_dataset.dataset module &#8212; TFRecord Dataset 0.1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <section id="module-tfrecord_dataset.dataset">
+<span id="tfrecord-dataset-dataset-module"></span><h1>tfrecord_dataset.dataset module<a class="headerlink" href="#module-tfrecord_dataset.dataset" title="Permalink to this headline">¶</a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="tfrecord_dataset.dataset.Dataset">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">tfrecord_dataset.dataset.</span></span><span class="sig-name descname"><span class="pre">Dataset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">train_set_dir</span></em>, <em class="sig-param"><span class="pre">test_set_dir</span></em>, <em class="sig-param"><span class="pre">file_format</span></em>, <em class="sig-param"><span class="pre">train_labels_file</span></em>, <em class="sig-param"><span class="pre">label_type=&lt;class</span> <span class="pre">'int'&gt;</span></em>, <em class="sig-param"><span class="pre">train_labels_file_has_header=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tfrecord_dataset.dataset.Dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="tfrecord_dataset.dataset.Dataset.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">train_set_dir</span></em>, <em class="sig-param"><span class="pre">test_set_dir</span></em>, <em class="sig-param"><span class="pre">file_format</span></em>, <em class="sig-param"><span class="pre">train_labels_file</span></em>, <em class="sig-param"><span class="pre">label_type=&lt;class</span> <span class="pre">'int'&gt;</span></em>, <em class="sig-param"><span class="pre">train_labels_file_has_header=True</span></em><span class="sig-paren">)</span><a class="headerlink" href="#tfrecord_dataset.dataset.Dataset.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>A dataset that consists of a directory with a set of train examples and a directory with a set of test examples.
+Each example is stored in a different file, with a given file format.
+There is a CSV file that matches each example with its label. Each example is identified by its file name
+without the extension.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>train_set_dir</strong> (<em>str</em>) – Path to the directory that contains the training examples.</p></li>
+<li><p><strong>test_set_dir</strong> (<em>str</em>) – Path to the directory that contains the test examples.</p></li>
+<li><p><strong>file_format</strong> (<em>str</em>) – Format of the example files, specified as <cite>*.format</cite>. It can specify any pattern that
+matches the desired files as long as it is compatible with Path().rglob().</p></li>
+<li><p><strong>train_labels_file</strong> (<em>str</em>) – Path to the CSV file that maps each file name to its label. It must contain one row
+per training example, with two fields: example ID (file name without extension) and label.</p></li>
+<li><p><strong>label_type</strong> (<em>type</em>) – Type of the label, usually an integer. Optional, default: int</p></li>
+<li><p><strong>train_labels_file_has_header</strong> (<em>bool</em>) – Set to True when the labels CSV file contains a first row that acts as a
+header with metadata or the names of the columns. It is used to discard this column. Optional, default: True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tfrecord_dataset.dataset.Dataset.test_set_in_splits_generator">
+<span class="sig-name descname"><span class="pre">test_set_in_splits_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tfrecord_dataset.dataset.Dataset.test_set_in_splits_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator that yields one split of the test set each time. The test set is divided in N splits with equal size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_splits</strong> (<em>int</em>) – Number of partitions the test set will be split into.</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em>) – Whether to shuffle the dataset prior to partitioning or not. Optional, default: True</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Seed to initialize the random number generator for the shuffling. It must be set to the same
+value between executions to ensure the generated subsets are the same. Optional, default: 42</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Yields a split of the original test set on each iteration, with shape
+(~ N_EXAMPLES // N_SPLITS, 1). The actual number of examples differs among splits if the total number
+of examples in the test set is not a multiple of the number of splits. The only column is the
+example’s file path, since the test set has no labels.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="tfrecord_dataset.dataset.Dataset.train_set_in_splits_generator">
+<span class="sig-name descname"><span class="pre">train_set_in_splits_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n_splits</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shuffle</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">seed</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">42</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#tfrecord_dataset.dataset.Dataset.train_set_in_splits_generator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generator that yields one split of the train set each time. The train set is divided in N splits while
+keeping the same label distribution as in the complete set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n_splits</strong> (<em>int</em>) – Number of partitions the train set will be split into.</p></li>
+<li><p><strong>shuffle</strong> (<em>bool</em>) – Whether to shuffle the dataset prior to partitioning or not. Optional, default: True</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – Seed to initialize the random number generator for the shuffling. It must be set to the same
+value between executions to ensure the generated subsets are the same. Optional, default: 42</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Yields a split of the original train set on each iteration, with shape
+(~ N_EXAMPLES // N_SPLITS, 2). The actual number of examples differs among splits if the total number
+of examples in the training set is not a multiple of the number of splits. The two columns are the
+example’s file path and its manual label.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">TFRecord Dataset</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, ChusJM.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/tfrecord_dataset.dataset.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

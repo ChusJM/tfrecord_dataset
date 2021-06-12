@@ -1,0 +1,7 @@
+tfrecord\_dataset.dataset module
+================================
+
+.. automodule:: tfrecord_dataset.dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:

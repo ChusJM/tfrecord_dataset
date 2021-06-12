@@ -1,0 +1,16 @@
+tfrecord\_dataset package
+=========================
+
+.. automodule:: tfrecord_dataset
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Submodules
+----------
+
+.. toctree::
+   :maxdepth: 4
+
+   tfrecord_dataset.dataset
+   tfrecord_dataset.tfrecords
