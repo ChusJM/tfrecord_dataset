@@ -179,7 +179,7 @@ def custom_data_preprocessing_function(example_path):
 
 For a complete usage example on a real dataset, please see this [Kaggle notebook](TODO).
 
-For more information about the API, please read the automatically generated [documentation](docs\index.html).
+For more information about the API, please read the automatically generated [documentation](chusjm.github.io/tfrecord_dataset).
 
 ## Why?
 
