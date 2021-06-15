@@ -145,7 +145,7 @@ The test set is treated similarly, but here there is no label type since test ex
 are not labelled.
 ```python
 tf_test_set = tfrecords.load_dataset_from_files(
-    file_paths=list(map(str, self.DUMMY_DATASET_PATH.glob('test_*.tfrecord'))),
+    file_paths=list(map(str, DUMMY_DATASET_PATH.glob('test_*.tfrecord'))),
     data_shape=data_shape, data_type=data_type, label_type=None
 )
 for recovered in tf_test_set:
