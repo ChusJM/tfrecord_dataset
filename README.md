@@ -177,7 +177,7 @@ def custom_data_preprocessing_function(example_path):
 
 ### More information
 
-For a complete usage example on a real dataset, please see this [Kaggle notebook](TODO).
+For a complete usage example on a real dataset, please see this [Kaggle notebook](https://www.kaggle.com/chusjm/seti-bl-preprocessed-dataset-to-tfrecord).
 
 For more information about the API, please read the automatically generated [documentation](https://chusjm.github.io/tfrecord_dataset/).
 
